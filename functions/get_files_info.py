@@ -3,9 +3,6 @@ import os
 def get_files_info(working_dir, directory='.'):
     abs_working_dir = os.path.abspath(working_dir)
     abs_directory = os.path.abspath(os.path.join(working_dir,directory))
-
-
-
     if not abs_directory.startswith(abs_working_dir):
         return f"Error: {directory} is not a directory"
 
