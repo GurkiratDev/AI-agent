@@ -1,7 +1,5 @@
 import os
 
-MAX_CHAR = 10000
-
 def write_file(working_dir, file_path, content):
     abs_working_dir = os.path.abspath(working_dir)
     abs_file_path = os.path.abspath(os.path.join(working_dir, file_path))

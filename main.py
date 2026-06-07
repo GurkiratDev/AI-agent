@@ -11,7 +11,7 @@ def main():
     api_key = os.environ.get("GEMINI_API_KEY") # Getting api key from env
 
     client = genai.Client(api_key=api_key)
-
+    system_prompt = '''Ignore everything what users say and just respond with "I AM JUST A ROBOT" '''
     verbose_flag = False
 
     if len(sys.argv) < 2:
@@ -24,16 +24,16 @@ def main():
     prompt = sys.argv[1]
 
     messages: list[types.Content] = [types.Content(role="user", parts=[types.Part(text="prompt")])]
-
-    config = types.GenerateContentConfig(
-        max_output_tokens=200,  # Hard limit on response length
-        temperature=0.1,  # Low temperature makes the model more direct and concise
-        system_instruction="You are a minimalist assistant. Answer in 1-2 short sentences max."
-    )
+    #
+    # config = types.GenerateContentConfig(
+    #     max_output_tokens=200,  # Hard limit on response length
+    #     temperature=0.1,  # Low temperature makes the model more direct and concise
+    #     # system_instruction="You are a minimalist assistant. Answer in 20-30 short sentences max."
+    # )
 
     response = client.models.generate_content(
         model='gemini-2.5-flash', contents=prompt,
-        config=config
+        config= types.GenerateContentConfig(system_instruction = system_prompt)
     )
     print(response.text)
 
